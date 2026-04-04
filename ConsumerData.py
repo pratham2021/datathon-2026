@@ -84,3 +84,7 @@ for col in c.columns:
 # STEP 3: Save
 # ============================================================
 c.to_csv('consumer_clean.csv', index=False)
+print('\nSaved: consumer_clean.csv')
+print('\nNext step: upload property_clean.csv and we will run')
+print('the correlation analysis to find which consumer attributes')
+print('matter most for predicting home type.')
