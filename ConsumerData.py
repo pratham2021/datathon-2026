@@ -48,7 +48,7 @@ print('Columns encoded and nulls filled.')
 # ============================================================
 selected_cols = [
     'MAK',
-    'Address'
+    'Address',
     'HouseholdSize',
     'VehicleKnownOwnedNumber',
     'NetWorth',
