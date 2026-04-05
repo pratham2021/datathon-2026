@@ -36,8 +36,10 @@ property_data['PropertyAddress'] = property_data['PropertyAddress'].str.strip().
 
 merged_data = pd.merge(consumer_data, property_data, left_on='Address', right_on='PropertyAddress', how='inner')
 
-X = merged_data[consumer_data]
-y = merged_data[property_data]
+X = merged_data[consumer_data_columns].copy()
+y = merged_data[property_data_columns].copy()
+
+addresses = merged_data['PropertyAddress'].copy()
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
@@ -50,19 +52,6 @@ nn = NearestNeighbors(n_neighbors=3, metric='cosine')
 nn.fit(property_scaled)
 
 distances, indices = nn.kneighbors(consumer_scaled)
-
-knn = KNeighborsClassifier(n_neighbors=3)
-knn.fit(X_train, y_train)
-y_pred = knn.predict(X_test)
-
-accuracy_percentage = knn.score(X_test, y_test)
-print(accuracy_percentage)
-
-cm = confusion_matrix(y_test, y_pred)
-print(cm)
-
-cr = classification_report(y_test, y_pred)
-print(cr)
 
 top_k_houses = property_data.iloc[indices[0]].copy()
 top_k_houses["Similarity"] = 1 - distances[0]
